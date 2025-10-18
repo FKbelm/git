@@ -1412,6 +1412,18 @@ test_expect_success 'git switch - with no options, complete local branches and u
 	EOF
 '
 
+test_expect_success 'git tag --column=' '
+	test_completion "git tag --column=" <<-\EOF
+	auto Z
+	column Z
+	dense Z
+	never Z
+	nodense Z
+	plain Z
+	row Z
+	EOF
+'
+
 test_expect_success 'git bisect - when not bisecting, complete only replay and start subcommands' '
 	test_completion "git bisect " <<-\EOF
 	replay Z

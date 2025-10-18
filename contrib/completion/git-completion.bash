@@ -1652,6 +1652,10 @@ _git_branch ()
 	--set-upstream-to=*)
 		__git_complete_refs --cur="${cur##--set-upstream-to=}"
 		;;
+	--column=*)
+		__gitcomp "$__git_column_opts" "" "${cur##--column=}"
+		return
+		;;
 	--*)
 		__gitcomp_builtin branch
 		;;
@@ -1903,6 +1907,8 @@ __git_color_moved_opts="no default plain blocks zebra dimmed-zebra"
 
 __git_color_moved_ws_opts="no ignore-space-at-eol ignore-space-change
 			ignore-all-space allow-indentation-change"
+
+__git_column_opts="never auto column row plain dense nodense"
 
 __git_ws_error_highlight_opts="context old new all default"
 
@@ -2654,9 +2660,7 @@ _git_status ()
 		return
 		;;
 	--column=*)
-		__gitcomp "
-			always never auto column row plain dense nodense
-			" "" "${cur##--column=}"
+		__gitcomp "$__git_column_opts" "" "${cur##--column=}"
 		return
 		;;
 	--*)
@@ -2883,6 +2887,10 @@ __git_complete_config_variable_value ()
 		;;
 	color.*)
 		__gitcomp "false true always never auto" "" "$cur_"
+		return
+		;;
+	column.*)
+		__gitcomp "$__git_column_opts" "" "$cur_"
 		return
 		;;
 	diff.submodule)
@@ -3697,6 +3705,10 @@ _git_tag ()
 	esac
 
 	case "$cur" in
+	--column=*)
+		__gitcomp "$__git_column_opts" "" "${cur##--column=}"
+		return
+		;;
 	--*)
 		__gitcomp_builtin tag
 		;;
